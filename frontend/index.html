@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>GreenCRM - Вход</title>
+  <link rel="stylesheet" href="css/index.css">
+  <style>
+    /* Модальное окно */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 8% auto;
+      padding: 30px;
+      border-radius: 10px;
+      width: 400px;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .toggle-link {
+      color: #007BFF;
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 14px;
+    }
+
+    .auth-form input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 16px;
+    }
+
+    .auth-button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .auth-button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-container">
+    <header class="welcome-header">
+      <h1>Добро пожаловать в GreenCRM</h1>
+      <p>Эффективное управление клиентами с умом</p>
+    </header>
+
+    <section class="auth-section">
+      <h2>Авторизация</h2>
+      <form class="auth-form" id="login-form">
+        <input type="text" id="loginLogin" placeholder="Логин" required>
+        <input type="password" id="passwordLogin" placeholder="Пароль" required>
+        <button type="submit" class="auth-button">Войти</button>
+      </form>
+      <p>Нет аккаунта? <span class="toggle-link" id="openRegisterModal">Зарегистрироваться</span></p>
+    </section>
+  </div>
+
+  <!-- Модальное окно регистрации -->
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeRegisterModal">&times;</span>
+      <h2>Регистрация</h2>
+      <form class="auth-form" id="register-form">
+        <input type="text" id="loginRegister" placeholder="Логин" required>
+        <input type="password" id="passwordRegister" placeholder="Пароль" required>
+        <button type="submit" class="auth-button">Зарегистрироваться</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Авторизация
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const login = document.getElementById('loginLogin').value;
+      const password = document.getElementById('passwordLogin').value;
+
+      fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ login, password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          window.location.href = '/main';
+        } else {
+          alert(data.message || 'Ошибка авторизации');
+        }
+      });
+    });
+
+    // Регистрация
+    document.getElementById('register-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const login = document.getElementById('loginRegister').value;
+      const password = document.getElementById('passwordRegister').value;
+
+      fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ login, password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          alert('Регистрация прошла успешно! Теперь войдите.');
+          closeModal();
+        } else {
+          alert(data.message || 'Ошибка регистрации');
+        }
+      });
+    });
+
+    // Открытие/закрытие модального окна
+    const modal = document.getElementById('registerModal');
+    document.getElementById('openRegisterModal').onclick = () => modal.style.display = 'block';
+    document.getElementById('closeRegisterModal').onclick = () => modal.style.display = 'none';
+    window.onclick = function(event) {
+      if (event.target === modal) modal.style.display = 'none';
+    };
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+  </script>
+</body>
+</html>

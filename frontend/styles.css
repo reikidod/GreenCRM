@@ -1,0 +1,57 @@
+:root {
+    --primary: #2E7D32;
+    --secondary: #81C784;
+    --accent: #FFA000;
+    --background: #f5f7fa;
+}
+
+/* Общие стили */
+body {
+    font-family: 'Segoe UI', system-ui;
+    background: var(--background);
+    margin: 0;
+}
+
+/* Анимации */
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Боковая панель */
+.sidebar {
+    width: 80px;
+    background: var(--primary);
+    transition: all 0.3s;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+}
+
+.sidebar:hover {
+    width: 250px;
+}
+
+.logo-text {
+    display: none;
+    margin-left: 1rem;
+    font-weight: 600;
+    color: white;
+}
+
+.sidebar:hover .logo-text {
+    display: inline;
+}
+
+/* Кнопки */
+.btn-gradient {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-gradient:hover {
+    transform: translateY(-2px);
+}

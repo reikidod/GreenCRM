@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ProcessFlow</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/notifications.css" />
+  <link rel="stylesheet" href="css/client-board.css" />
+
+  <style>
+    
+  </style>
+</head>
+<body class="light-theme">
+
+  <!-- Боковая панель -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-wrapper">
+        <i class="fas fa-seedling logo-icon"></i>
+        <span class="logo-text">GreenCRM</span>
+      </div>
+    </div>
+    <ul class="sidebar-menu">
+      <li class="active" id="home-btn">
+        <i class="fas fa-chart-pie"></i>
+        <span>Главная</span>
+      </li>
+      <li id="clients-btn">
+        <i class="fas fa-users"></i>
+        <span>Клиенты</span>
+      </li>
+      <li id="notification-btn" class="nav-link">
+        <i class="fas fa-bell"></i>
+        <span>Уведомления</span>
+      </li>
+      <li class="settings-trigger">
+        <i class="fas fa-cog"></i>
+        <span>Настройки</span>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Основной контент -->
+  <main class="main-content">
+    <div class="main-header">
+      <h1>📂 Панель задач</h1>
+      <div class="filters">
+        <input type="text" class="search-input" placeholder="Поиск задач..." />
+        
+		<!-- Кнопка для добавления новой задачи -->
+		<button id="open-task-modal" class="btn-add-task">+ Новая задача</button>
+
+		<!-- Кнопка для добавления нового клиента -->
+		<button id="open-client-modal" class="btn-add-client">+ Новый клиент</button>
+
+
+      </div>
+    </div>
+
+    <!-- Доска задач -->
+    <section class="task-board" id="task-board">
+      <div class="task-column" data-status="work">
+        <h2><i class="fas fa-rocket"></i> В работе</h2>
+        <div class="cards-container" id="work-column"></div>
+      </div>
+      <div class="task-column" data-status="pending">
+        <h2><i class="fas fa-clock"></i> На согласовании</h2>
+        <div class="cards-container" id="pending-column"></div>
+      </div>
+      <div class="task-column" data-status="done">
+        <h2><i class="fas fa-check-circle"></i> Завершено</h2>
+        <div class="cards-container" id="done-column"></div>
+      </div>
+    </section>
+<!-- Модальное окно для добавления клиента -->
+<div class="modal" id="add-client-modal" style="display: none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Добавить клиента</h3>
+      <button class="close-modal" id="close-client-modal">&times;</button>
+    </div>
+    <form id="add-client-form">
+      <input type="text" id="client-name" placeholder="Имя клиента" required>
+      <select id="client-status">
+        <option value="active">Активный</option>
+        <option value="consulting">На консультации</option>
+        <option value="closed">Закрытый</option>
+      </select>
+      <button type="submit">Добавить</button>
+    </form>
+  </div>
+</div>
+    <!-- Колонки для клиентов -->
+    <section class="client-board hidden" id="client-board">
+      <div class="client-column" data-status="active">
+        <h2><i class="fas fa-user-check"></i> Активные</h2>
+        <div class="cards-container" id="active-clients"></div>
+      </div>
+      <div class="client-column" data-status="consulting">
+        <h2><i class="fas fa-comments"></i> На консультации</h2>
+        <div class="cards-container" id="consulting-clients"></div>
+      </div>
+      <div class="client-column" data-status="closed">
+        <h2><i class="fas fa-user-times"></i> Закрытые</h2>
+        <div class="cards-container" id="closed-clients"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Модальное окно добавления задачи -->
+  <div class="modal" id="add-task-modal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Добавить задачу</h3>
+        <button class="close-modal" id="close-task-modal">&times;</button>
+      </div>
+      <form id="add-task-form">
+        <input type="text" id="task-title" placeholder="Название задачи" required />
+        <select id="task-status">
+          <option value="work">В работе</option>
+          <option value="pending">На согласовании</option>
+          <option value="done">Завершено</option>
+        </select>
+        <button type="submit">Добавить</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Настройки -->
+  <div class="modal" id="settings-modal" style="display: none;">
+    <div class="modal-content">
+      <button class="close-modal" id="close-settings-modal">&times;</button>
+      <div class="modal-header">
+        <h2>Настройки</h2>
+      </div>
+      <div class="theme-options">
+        <button class="theme-btn light" data-theme="light">Светлая</button>
+        <button class="theme-btn dark" data-theme="dark">Темная</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Уведомления -->
+  <div class="modal" id="notification-modal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Уведомления</h3>
+        <button class="close-notification" id="close-notification-modal">&times;</button>
+      </div>
+      <div class="notification-list">
+        <div class="notification-item">Уведомление 1</div>
+        <div class="notification-item">Уведомление 2</div>
+        <div class="notification-item">Уведомление 3</div>
+      </div>
+    </div>
+  </div>
+
+  <button onclick="logout()" class="btn-logout">Выйти</button>
+
+  <!-- Скрипты -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const homeBtn = document.getElementById("home-btn");
+      const clientsBtn = document.getElementById("clients-btn");
+      const taskBoard = document.getElementById("task-board");
+      const clientBoard = document.getElementById("client-board");
+
+      function clearActiveMenu() {
+        document.querySelectorAll(".sidebar-menu li").forEach(li => li.classList.remove("active"));
+      }
+
+      homeBtn.addEventListener("click", () => {
+        clearActiveMenu();
+        homeBtn.classList.add("active");
+        taskBoard.classList.remove("hidden");
+        clientBoard.classList.add("hidden");
+      });
+
+      clientsBtn.addEventListener("click", () => {
+        clearActiveMenu();
+        clientsBtn.classList.add("active");
+        taskBoard.classList.add("hidden");
+        clientBoard.classList.remove("hidden");
+      });
+    });
+  </script>
+
+  <script src="js/main.js"></script>
+  <script src="js/logout.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/drag-and-drop.js"></script>
+  <script src="js/clients.js"></script>
+</body>
+</html>

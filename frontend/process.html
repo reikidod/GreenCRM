@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProcessFlow - Управление процессами</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="light-theme">
+
+  <!-- Боковая панель -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-wrapper">
+        <i class="fas fa-seedling logo-icon"></i>
+        <span class="logo-text">GreenCRM</span>
+      </div>
+    </div>
+    <ul class="sidebar-menu">
+      <li>
+        <a href="/main" class="nav-link">
+          <i class="fas fa-chart-pie"></i>
+          <span>Главная</span>
+        </a>
+      </li>
+      <li class="active">
+        <a href="/process" class="nav-link">
+          <i class="fas fa-tasks"></i>
+          <span>Процессы</span>
+        </a>
+      </li>
+      <li>
+        <a href="#notifications" class="nav-link">
+          <i class="fas fa-bell"></i>
+          <span>Уведомления</span>
+        </a>
+      </li>
+      <li class="settings-trigger">
+        <a href="#settings" class="nav-link">
+          <i class="fas fa-cog"></i>
+          <span>Настройки</span>
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Основной контент -->
+  <main class="main-content">
+    <div class="main-header">
+      <h1>⚙️ Управление процессами</h1>
+      <div class="filters">
+        <button class="btn-create-process">
+          <i class="fas fa-plus"></i> Новый процесс
+        </button>
+      </div>
+    </div>
+
+    <!-- Список процессов -->
+    <section class="process-list">
+      <div class="process-category">
+        <h2>📋 Активные процессы</h2>
+        <div class="process-items">
+          <div class="process-card">
+            <div class="process-header">
+              <h3>Процесс онбординга</h3>
+              <span class="status in-progress">В работе</span>
+            </div>
+            <div class="process-progress">
+              <div class="progress-bar" style="width: 65%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Подключаем общие скрипты -->
+  <script src="js/main.js"></script>
+  <script src="js/process.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+/* Стили для модального окна добавления клиента */
+#add-client-modal .modal-content {
+  width: 400px;
+}
+
+#add-client-modal input,
+#add-client-modal select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+#add-client-modal button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+#add-client-modal button:hover {
+  background-color: #218838;
+}
+
+#add-client-modal .close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+/* Общие стили для обеих кнопок */
+.btn-add-task, .btn-add-client {
+  background-color: #28a745; /* Зеленый фон */
+  color: #fff; /* Белый цвет текста */
+  padding: 10px 20px; /* Отступы */
+  border: none; /* Без границы */
+  border-radius: 6px; /* Слегка скругленные углы */
+  font-size: 1em; /* Размер шрифта */
+  cursor: pointer; /* Курсор при наведении */
+  transition: background-color 0.3s; /* Плавный переход для фона */
+}
+
+.btn-add-task:hover, .btn-add-client:hover {
+  background-color: #218838; /* Темно-зеленый фон при наведении */
+}
+
+/* Стили для кнопки "Новая задача" */
+#open-task-modal {
+  display: inline-block; /* Делает кнопку блочной и позволяет выравнивание */
+}
+
+/* Стили для кнопки "Новый клиент" */
+#open-client-modal {
+  display: inline-block; /* Делает кнопку блочной и позволяет выравнивание */
+}

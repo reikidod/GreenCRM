@@ -1,0 +1,68 @@
+/* Стили для страницы процессов */
+.process-list {
+  margin-top: 30px;
+}
+
+.process-category {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: var(--shadow);
+}
+
+.process-category h2 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.process-card {
+  padding: 20px;
+  border-left: 4px solid var(--secondary-color);
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background: #f8f9fa;
+}
+
+.process-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.status {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.9em;
+}
+
+.status.in-progress {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.process-progress {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.btn-create-process {
+  background: var(--primary-color);
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
