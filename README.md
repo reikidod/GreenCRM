@@ -1,1 +1,11 @@
 # GreenCRM
+
+установите зависимости 
+
+flask==2.2.5
+werkzeug==2.2.3
+pandas==1.3.3
+openpyxl==3.0.9
+sqlalchemy==1.4.23
+flask-cors==3.0.10
+python-dotenv==0.19.0
